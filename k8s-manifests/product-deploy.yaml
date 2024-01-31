@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: product
+  template:
+    metadata:
+      labels:
+        app: product
+    spec:
+      containers:
+      - name: product
+        image: adityadevops/productservice:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: log-level-configmap
+              key: log_level
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: api-key-secret
+              key: api_key

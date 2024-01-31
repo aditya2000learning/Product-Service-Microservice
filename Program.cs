@@ -10,6 +10,9 @@ builder.WebHost.UseUrls(url);
 
 var app = builder.Build();
 
+var logLevel = Environment.GetEnvironmentVariable("LOG_LEVEL");
+var apiKey = Environment.GetEnvironmentVariable("API_KEY");
+
 // Seed initial data
 SeedData(app.Services.GetRequiredService<List<Product>>());
 
